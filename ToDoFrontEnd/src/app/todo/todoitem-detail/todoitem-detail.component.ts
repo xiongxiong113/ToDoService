@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./todoitem-detail.component.scss'],
 })
 export class TodoitemDetailComponent implements OnInit {
-  todoItem:ToDoItem = new ToDoItem(0,'','',false);
+  todoItem: ToDoItem = new ToDoItem(0, '', '', false);
 
   constructor(
     public todoService: TodoService,
@@ -19,6 +19,6 @@ export class TodoitemDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.activedRoute.snapshot.paramMap.get('id');
     console.log(id);
-    this.todoItem=this.todoService.findById(Number(id));
+    this.todoItem = this.todoService.findById(Number(id));
   }
 }

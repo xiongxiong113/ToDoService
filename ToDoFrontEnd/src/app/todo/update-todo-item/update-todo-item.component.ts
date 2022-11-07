@@ -9,7 +9,7 @@ import { ToDoItem } from '../../model/ToDoItem';
   styleUrls: ['./update-todo-item.component.scss'],
 })
 export class UpdateTodoItemComponent implements OnInit {
-  todoItem:ToDoItem = new ToDoItem(0,"","",false);
+  todoItem: ToDoItem = new ToDoItem(0, '', '', false);
 
   constructor(
     public todoService: TodoService,
