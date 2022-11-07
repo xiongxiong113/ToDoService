@@ -4,7 +4,7 @@ import { TodoStoreService } from './todo-store.service';
 import { TodoService } from './todo.service';
 import { TodoApiService } from '../api/todo.api.service';
 import { HttpClient } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('TodoService', () => {
   let service: TodoService;
@@ -29,6 +29,7 @@ describe('TodoService', () => {
   it('should create todoItem via mockHttp post', () => {
     // given
     const todoItem = new ToDoItem(9, 'title', 'description', true);
+    httpClientSpy.post.and.returnValue(of({}))
     // when
     service.create(todoItem);
     // then
