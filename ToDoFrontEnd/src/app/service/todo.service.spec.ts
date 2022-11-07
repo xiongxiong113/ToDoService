@@ -5,13 +5,14 @@ import { TodoService } from './todo.service';
 import { TodoApiService } from '../api/todo.api.service';
 import { HttpClient } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
+const baseUrl='https://localhost:5001/'
 
 describe('TodoService', () => {
   let service: TodoService;
   let todoStoreService: TodoStoreService;
   let httpClientSpy: any;
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post','get']);
     todoStoreService = new TodoStoreService();
     TestBed.configureTestingModule({
       providers: [
@@ -34,7 +35,7 @@ describe('TodoService', () => {
     service.create(todoItem);
     // then
     expect(httpClientSpy.post).toHaveBeenCalledWith(
-      'https://635fc244ca0fe3c21aa3d012.mockapi.io/api/todos',
+      `${baseUrl}todos`,
       todoItem
     );
   });
@@ -47,5 +48,16 @@ describe('TodoService', () => {
     service.create(todoItem);
     // then
     expect(service.errorMessage).toEqual('create failed')
+  });
+
+  it('should get todoItem by id via mockHttp get', () => {
+    // given
+    httpClientSpy.get.and.returnValue(of(new ToDoItem(1,'title', 'description', true)))
+    // when
+    service.findById(1);
+    // then
+    expect(httpClientSpy.get).toHaveBeenCalledWith(
+      `${baseUrl}todos/1`,
+    );
   });
 });

@@ -12,4 +12,8 @@ export class TodoApiService {
   create(todoitem: ToDoItem): Observable<void>{
     return this.http.post<void>(`${baseUrl}todos`, todoitem)
   }
+
+  findById(id: number): Observable<ToDoItem>{
+    return this.http.get<ToDoItem>(`${baseUrl}todos/${id}`)
+  }
 }

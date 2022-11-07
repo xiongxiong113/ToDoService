@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TodoApiService } from '../api/todo.api.service';
 import { ToDoItem } from '../model/ToDoItem';
@@ -16,8 +17,8 @@ export class TodoService {
     return this.todoStore.getAll();
   }
 
-  findById(id: number): ToDoItem {
-    return this.todoStore.findById(id);
+  findById(id: number): Observable<ToDoItem> {
+    return this.todoApi.findById(id);
   }
 
   public create(todoItem: ToDoItem): void {
@@ -26,7 +27,7 @@ export class TodoService {
       error: error =>{
         this.errorMessage = error.errorMessage
       }
-    
+
     })
   }
 
