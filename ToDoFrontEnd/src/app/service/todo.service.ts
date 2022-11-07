@@ -7,9 +7,10 @@ import { TodoStoreService } from './todo-store.service';
   providedIn: 'root',
 })
 export class TodoService {
+  public errorMessage?: string;
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
-  constructor(private todoStore: TodoStoreService, private todoApi:TodoApiService) {}
+  constructor(private todoStore: TodoStoreService, private todoApi: TodoApiService) {}
 
   public get todoItems(): Array<ToDoItem> {
     return this.todoStore.getAll();
