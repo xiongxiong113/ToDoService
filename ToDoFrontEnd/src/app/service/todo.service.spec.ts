@@ -12,7 +12,7 @@ describe('TodoService', () => {
   let todoStoreService: TodoStoreService;
   let httpClientSpy: any;
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post','get']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post','get','delete']);
     todoStoreService = new TodoStoreService();
     TestBed.configureTestingModule({
       providers: [
@@ -54,10 +54,21 @@ describe('TodoService', () => {
     // given
     httpClientSpy.get.and.returnValue(of(new ToDoItem(1,'title', 'description', true)))
     // when
-    service.findById(1);
+    service.findById(1).subscribe(data=>console.log(data));
     // then
     expect(httpClientSpy.get).toHaveBeenCalledWith(
       `${baseUrl}todos/1`,
+    );
+  });
+
+  it('should delete todoItem by id via mockHttp delete', () => {
+    // given
+    httpClientSpy.delete.and.returnValue(of({}))
+    // when
+    service.delete(1)
+    // then
+    expect(httpClientSpy.delete).toHaveBeenCalledWith(
+      `${baseUrl}todos?id=1`,
     );
   });
 });

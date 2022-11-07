@@ -36,7 +36,10 @@ export class TodoService {
   }
 
   public delete(id: number): void {
-    this.todoStore.delete(id);
+    this.todoApi.delete(id).subscribe({
+      next:response=>{},
+      error:error=>{console.log(error.message)}
+    });
   }
 
   public selectTodoItem(id: number): void {
